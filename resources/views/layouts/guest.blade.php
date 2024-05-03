@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'ISC Goma') }}</title>
+        <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -13,29 +13,17 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-        <style>
-            .bg {
-                background-image: url('{{asset("assets/backend/img/ok.JPG")}}');
-                /* spécifiez la taille et le comportement de l'image de fond */
-                background-size: cover; /* ajuster la taille de l'image pour couvrir le conteneur */
-                background-position: center; /* positionner l'image au centre */
-                background-repeat: no-repeat; /* ne pas répéter l'image */
-                /* autres styles */
-            }
-        </style>
     </head>
     <body class="font-sans text-gray-900 antialiased">
-        <div class="bg min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 " >
-            
+        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
             <div>
                 <a href="/">
-
-                    {{-- <img src="{{ asset('public/logo_isc.PNG' )}}" width="100" alt=""> --}}
+                    {{-- <x-application-logo class="w-20 h-20 fill-current text-gray-500" /> --}}
+                    <h1 style="font-size: 2em"><b>MAISON CALEB</b></h1>
                 </a>
             </div>
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 shadow-md overflow-hidden sm:rounded-lg" > 
+            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
                 {{ $slot }}
             </div>
         </div>

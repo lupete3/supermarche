@@ -10,7 +10,7 @@
                 <h1>{{ $viewData['title'] }}</h1>
                 <div class="section-header-breadcrumb">
                   <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Tableau de Bord</a></div>
-                  <div class="breadcrumb-item"><a href="{{ route('articles.index')}}">Médicaments</a></div>
+                  <div class="breadcrumb-item"><a href="{{ route('paiements.index')}}">Paiements</a></div>
                   <div class="breadcrumb-item">{{ $viewData['title'] }}</div>
                 </div>
             </div>
@@ -38,43 +38,22 @@
                             </div> 
                         @endif
                       <div class="card ">
-                        <form method="post" action="{{ route('articles.update',$article->id)}}" enctype="multipart/form-data">
+                        <form method="post" action="{{ route('paiements.update',$paiement->id)}}" enctype="multipart/form-data">
                           @method('PUT')  
                           @csrf
                           <div class="card-header">
                             <h4>{{$viewData['title']}}</h4>
                             <div class="card-header-action">
-                                <a href="{{ route('articles.index')}}" class="btn btn-icon icon-left btn-info"><i class="fas fa-list-alt"></i> Afficher les médicaments</a>
+                                <a href="{{ route('paiements.index')}}" class="btn btn-icon icon-left btn-info"><i class="fas fa-list-alt"></i> Afficher les paiements</a>
                             </div> 
                           </div>
                           <div class="card-body">
-                            <div class="form-group">
-                              <label>Choisir une catégorie</label>
-                              <select name="category_id" class="form-control selectpicker" id="category_id" data-live-search="true" required>
-
-                                @foreach ($viewData['categories'] as $category)
-
-                                  <option data-tokens="{{ $category->nom }}" @selected(old('category_id', $article->category_id ) == $category->id)  value="{{ $category->id }}">{{ $category->nom }}</option>
-
-                                @endforeach
-                               
-                              </select>
-                            </div>
 
                             <div class="form-group">
-                              <label>Nom</label>
-                              <input type="text" class="form-control" name="name" value="{{ $article->designation }}" required="">
+                              <label>Montant Payé:*</label>
+                              <input type="text" class="form-control" name="montant" value="{{ $paiement->montant }}" required="">
                             </div>
-                            
-                            <div class="form-group">
-                              <label>Prix d'achat ($)</label>
-                              <input type="text" class="form-control" name="prix" value="{{ $article->prix_achat }}" required="">
-                            </div>
-                            
-                            <div class="form-group">
-                              <label>Prix de détail ($)</label>
-                              <input type="text" class="form-control" name="prix" value="{{ $article->prix }}" required="">
-                            </div>
+
                           </div>
                           <div class="card-footer text-right">
                             <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Mettre à jour </button>

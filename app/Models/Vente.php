@@ -10,9 +10,9 @@ class Vente extends Model
 {
     use HasFactory;
 
-    public function client(): BelongsTo
+    public function commande(): BelongsTo
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(Commande::class);
     }
     
     public function article(): BelongsTo

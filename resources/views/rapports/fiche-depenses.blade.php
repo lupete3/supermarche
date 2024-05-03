@@ -62,7 +62,7 @@
                                                             <td> {{ $depense->date_depense }} </td>
                                                             <td> #DEP0{{ $depense->id }} </td>
                                                             <td> {{ $depense->category->nom }} </td>
-                                                            <td> {{ $depense->montant }}fc </td>
+                                                            <td> {{ $depense->montant }}$ </td>
                                                             <td> {{ $depense->personne }} </td>
                                                         </tr>
                                                     @endforeach

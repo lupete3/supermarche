@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Client;
+use App\Models\Commande;
+use App\Models\Creance;
 use App\Models\Vente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -20,7 +22,7 @@ class VenteController extends Controller
 
         $viewData['title'] = 'Historique des ventes';
 
-        $viewData['ventes'] = Vente::all();
+        $viewData['ventes'] = Commande::latest()->with('ventes')->get();
 
         return view('ventes.index')->with('viewData', $viewData);
     }
@@ -41,8 +43,7 @@ class VenteController extends Controller
 
         $viewData['clients'] = Client::orderBy('nom', 'ASC')->get();
 
-        $viewData['clients_commandes'] = Client::with('ventes')->get();
-
+        $viewData['clients_commandes'] = Client::with('commandes')->get();
 
         return view('ventes.create')->with('viewData', $viewData);
     }
@@ -142,17 +143,23 @@ class VenteController extends Controller
 
         $viewData['title'] = $client->nom;
 
+        $montant = $request->montant;
+
+        $reduction = $request->reduction;
+
         $client = Client::findOrFail($request->client_id); 
 
-        return view('ventes.facture',compact('client'))->with('viewData', $viewData);
+        return view('ventes.facture',compact('client','montant','reduction'))->with('viewData', $viewData);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function paiement(Client $client)
+    public function paiement(Client $client, Request $request)
     {
         $viewData = [];
+
+        $commande = Commande::lastest();
 
         $viewData['ventes'] = Vente::select('id')->where('client_id', $client->id)->get();
 
@@ -170,8 +177,15 @@ class VenteController extends Controller
      */
     public function store(Client $client, Request $request)
     {
+
         // Récupérer les produits du panier depuis la session
         $cart = Session::get('cart');
+
+        $commande = Commande::create([
+            'montant' => $request->montant,
+            'reduction' => $request->reduction,
+            'client_id' => $client->id
+        ]);
 
         // Calculer le montant total de la commande
         foreach ($cart as $productId => $item) {
@@ -194,13 +208,22 @@ class VenteController extends Controller
 
             $vente->prix_tot = $produit->prix * $item['quantity'];
 
-            $vente->client_id = $client->id;
+            $vente->commande_id = $commande->id;
 
             $vente->article_id = $productId;
 
             $vente->save();
-
             
+        }
+
+        $dette = $request->total - ($request->montant + $request->reduction);
+
+        if ($dette > 0) {
+            Creance::create([
+                'montant' => $dette,
+                'solde' => $dette,
+                'client_id' => $client->id
+            ]);
         }
 
         // Vider le panier après la finalisation de la commande

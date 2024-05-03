@@ -64,13 +64,13 @@
                                                             <td> {{ $num++ }} </td>
                                                             <td> {{ $approvisionnement->article->designation }} </td>
                                                             <td> {{ $approvisionnement->quantite }} </td>
-                                                            <td> {{ $approvisionnement->prix }} Fc</td>
-                                                            <td> {{ $approvisionnement->prix_total }} Fc</td>
+                                                            <td> {{ $approvisionnement->prix }} $</td>
+                                                            <td> {{ $approvisionnement->prix_total }} $</td>
                                                             
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
-                                                <h5>Total Achats : {{ $total }} Fc</h5>
+                                                <h5>Total Achats : {{ $total }} $</h5>
                                             </table>
                                         </div>
             

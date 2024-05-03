@@ -18,9 +18,8 @@ return new class extends Migration
             $table->decimal('prix_vente');
             $table->decimal('prix_tot');
             $table->decimal('bonus')->default(0);
-            $table->foreignId('client_id')->references('id')->on('clients')->onDelete('cascade');
+            $table->foreignId('commande_id')->references('id')->on('commandes')->onDelete('cascade');
             $table->foreignId('article_id')->references('id')->on('articles')->onDelete('cascade');
-            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }

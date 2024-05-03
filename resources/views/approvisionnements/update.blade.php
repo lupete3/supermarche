@@ -67,7 +67,7 @@
                             </div>
                             
                             <div class="form-group">
-                              <label>Prix Achat(Fc)</label>
+                              <label>Prix Achat($)</label>
                               <input type="text" class="form-control" name="prix_achat" value="{{ $approvisionnement->prix }}" required="">
                             </div>
                           </div>

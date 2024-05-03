@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryDepenseController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\CreanceController;
 use App\Http\Controllers\DepenseController;
 use App\Http\Controllers\VenteController;
 use Illuminate\Support\Facades\Route;
@@ -55,6 +56,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])->name('articles.edit');
     Route::put('/articles/{article}/update', [ArticleController::class, 'update'])->name('articles.update');
     Route::post('/articles/{article}/destroy', [ArticleController::class, 'destroy'])->name('articles.destroy');
+    Route::post('/articles/import', [ArticleController::class, 'importArticles'])->name('articles.import');
 
     Route::get('/approvisionnements', [ApprovisionnementController::class, 'index'])->name('approvisionnements.index');
     Route::post('/approvisionnements/store', [ApprovisionnementController::class, 'store'])->name('approvisionnements.store');
@@ -82,6 +84,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/depenses/{depense}/destroy', [DepenseController::class, 'destroy'])->name('depenses.destroy');
     Route::post('/depenses-print', [DepenseController::class, 'print'])->name('depenses.print');
 
+    Route::get('/creances', [CreanceController::class, 'index'])->name('creances.index');
+    Route::get('/creances/create', [CreanceController::class, 'create'])->name('creances.create');
+    Route::get('/paiements', [CreanceController::class, 'indexPaiement'])->name('paiements.index');
+    Route::post('/paiements/{creance}/store', [CreanceController::class, 'store'])->name('paiements.store');
+    Route::get('/paiements/{creance}/create', [CreanceController::class, 'show'])->name('creances.show');
+    Route::get('/paiement/{paiement}/edit', [CreanceController::class, 'edit'])->name('paiements.edit');
+    Route::put('/paiement/{paiement}/update', [CreanceController::class, 'update'])->name('paiements.update');
+    Route::post('/paiement/{paiement}/destroy', [CreanceController::class, 'destroy'])->name('paiements.destroy');
+
     Route::get('/rapport-clients', [DashboardController::class, 'rapportClients'])->name('dashboard.clients');
     Route::get('/rapport-produits', [DashboardController::class, 'rapportProduits'])->name('dashboard.produits');
     Route::get('/statistiques-produits', [DashboardController::class, 'rapportProduitsStat'])->name('dashboard.produits-stat');
@@ -92,6 +103,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/utilisateurs', [DashboardController::class, 'usersIndex'])->name('dashboard.usersIndex');
+    Route::get('/utilisateurs/create', [DashboardController::class, 'usersCreate'])->name('dashboard.usersCreate');
+    Route::post('/utilisateurs/store', [DashboardController::class, 'usersStore'])->name('dashboard.usersStore');
+    Route::get('/utilisateurs/{user}/edit', [DashboardController::class, 'usersEdit'])->name('dashboard.usersEdit');
+    Route::post('/utilisateurs/{user}/update', [DashboardController::class, 'usersUpdate'])->name('dashboard.usersUpdate');
+    Route::post('/utilisateurs/{user}/supprimer', [DashboardController::class, 'usersDelete'])->name('dashboard.usersDelete');
+
 });
 
 //Route to 404 page not found

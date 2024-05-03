@@ -47,9 +47,10 @@
                                                         <th>N°</th>
                                                         <th>Catégorie</th>
                                                         <th>Designation</th>
-                                                        <th>Prix</th>
+                                                        <th>Prix d'achat</th>
+                                                        <th>Prix de détail</th>
                                                         <th>En Stock</th>
-                                                        <th>Valeur En Stock(Fc)</th>
+                                                        <th>Valeur En Stock($)</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -62,9 +63,10 @@
                                                             <td> {{ $num++ }} </td>
                                                             <td> {{ $article->category->nom }} </td>
                                                             <td> {{ $article->designation }} </td>
-                                                            <td> {{ $article->prix }} Fc</td>
+                                                            <td> {{ $article->prix_achat }} $</td>
+                                                            <td> {{ $article->prix }} $</td>
                                                             <td> {{ $article->solde }} </td>
-                                                            <td> {{ $article->prix * $article->solde }} Fc</td>
+                                                            <td> {{ $article->prix * $article->solde }} $</td>
                                                             
                                                         </tr>
                                                     @endforeach

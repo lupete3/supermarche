@@ -54,7 +54,7 @@
 
                             @foreach ($viewData['articles'] as $article)
 
-                              <option value="{{ $article->id }}">{{ $article->designation.' => '.$article->prix }}Fc</option>
+                              <option value="{{ $article->id }}">{{ $article->designation.' => '.$article->prix }}$</option>
 
                             @endforeach
                           
@@ -63,10 +63,6 @@
                         <div class="form-group">
                           <label>Quantité Achetée</label>
                           <input type="text" class="form-control" name="quantite" value="{{ old('quantite') }}" placeholder="" required="">
-                        </div>
-                        <div class="form-group">
-                          <label>Bonus</label>
-                          <input type="text" class="form-control" name="bonus" value="{{ old('bonus') }}0" placeholder="" >
                         </div>
                     
                         <div class="card-footer text-right">
@@ -88,7 +84,6 @@
                           <th>Article</th>
                           <th>Quantité</th>
                           <th>Prix</th>
-                          <th>Bonus</th>
                           <th>Total</th>
                           <th></th>
                         </tr>
@@ -102,7 +97,6 @@
                                 <td>{{ $item['name'] }}</td>
                                 <td>{{ $item['quantity'] }}</td>
                                 <td>{{ $item['price'] }}</td>
-                                <td>{{ $item['bonus'] }}</td>
                                 @php
                                     $subtotal = $item['quantity'] * $item['price'];
                                     $totalAmount += $subtotal; // Met à jour le montant total
@@ -120,8 +114,8 @@
                       </tbody>
                       <tfoot>
                         <tr>
-                            <td colspan="4"><h6>Total à payer</h6></td>
-                            <td><h6>{{ $totalAmount }} Fc</h6></td>
+                            <td colspan="3"><h6>Total à payer</h6></td>
+                            <td><h6>{{ $totalAmount }} $</h6></td>
                         </tr>
                       </tfoot>
                     </table>
@@ -154,6 +148,7 @@
             <form method="post" class="row" action="{{ route('ventes.print')}}" enctype="multipart/form-data">
               @csrf
               <div class="form-group col-12 col-md-12 col-lg-12">
+                <label for="">Choisir un client*</label>
                 <select name="client_id" class="form-control selectpicker" id="article_id" data-live-search="true" required>
 
                   @foreach ($viewData['clients'] as $client)
@@ -163,6 +158,18 @@
                   @endforeach
                           
                 </select>
+              </div>  
+              <div class="form-group col-12 col-md-12 col-lg-12">
+
+                <label for="">Montant payé*</label>
+                <input type="text" class="form-control" value="" name="montant">
+                          
+              </div>  
+              <div class="form-group col-12 col-md-12 col-lg-12">
+
+                <label for="">Montant de Reduction*</label>
+                <input type="text" class="form-control" value="0" name="reduction">
+                          
               </div>  
               <div class="form-group col-12 col-md-12 col-lg-12">
                 <button type="button" class="btn btn-info btn-sm" id="modal-2" data-toggle="modal" data-target="#exampleModalClient">Ajouter un client</button>

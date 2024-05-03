@@ -44,6 +44,12 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
+        // Vérifier si c'est le premier utilisateur inscrit
+        if (User::count() === 1) {
+            $user->role = 'admin';
+            $user->save();
+        }
+
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);

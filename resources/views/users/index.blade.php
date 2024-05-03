@@ -12,7 +12,7 @@
                 <h1>{{ $viewData['title'] }}</h1>
                 <div class="section-header-breadcrumb">
                   <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Tableau de Bord</a></div>
-                  <div class="breadcrumb-item"><a href="{{ route('approvisionnements.index')}}">Approvisionnements</a></div>
+                  <div class="breadcrumb-item"><a href="{{ route('dashboard.usersIndex')}}">Liste des utilisateurs</a></div>
                   <div class="breadcrumb-item">{{ $viewData['title'] }}</div>
                 </div>
             </div>
@@ -43,8 +43,8 @@
                             <div class="card-header">
                                 <h4>{{ $viewData['title'] }} </h4>
                                 <div class="card-header-action">
-                                    <a href="{{ route('approvisionnements.create')}}" class="btn btn-icon icon-left btn-success"><i class="fas fa-plus"></i> Effectuer un approvisionnement</a>
-                                </div>   
+                                    <a href="{{ route('dashboard.usersCreate')}}" class="btn btn-icon icon-left btn-info"><i class="fas fa-plus"></i> Ajouter un utilisateur</a>
+                                </div>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -52,32 +52,32 @@
                                     <thead>                                 
                                         <tr>
                                             <th>#</th>
-                                            <th>Produit</th>
-                                            <th>Quantite Achetée</th>
-                                            <th>Prix Achats</th>
-                                            <th>Coût Total</th>
+                                            <th>Noms</th>
+                                            <th>Email</th>
+                                            <th>Rôle</th>
+                                            <th>Date Inscription</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($viewData['approvisionnements'] as $approvisionnement) 
+                                        @foreach ($viewData['users'] as $user) 
                                             <tr>
 
-                                                <td> {{ $approvisionnement->id }} </td>
-                                                <td> {{ $approvisionnement->article->designation }} </td>
-                                                <td> {{ $approvisionnement->quantite }} </td>
-                                                <td> {{ $approvisionnement->prix }} $</td>
-                                                <td> {{ $approvisionnement->prix_total }} $</td>
+                                                <td> {{ $user->id }} </td>
+                                                <td> {{ $user->name }} </td>
+                                                <td> {{ $user->email }} </td>
+                                                <td class="{{ ($user->role == 'admin' ? 'text-primary' : '') }}"> {{ $user->role }} </td>
+                                                <td> {{ $user->created_at }} </td>
                                                 
                                                 <td>
                                                     <div class="dropdown">
                                                         <a href="#" class="dropdown-toggle btn btn-primary" data-toggle="dropdown">Action</a>
                                                         
                                                         <div class="dropdown-menu dropdown-menu-right">
-                                                          
-                                                            <a href="{{ route('approvisionnements.edit', $approvisionnement->id)}}" class="dropdown-item has-icon"><i class="far fa-edit text-primary"></i> Modifier</a>
-                                                          
-                                                          <form action="{{ route('approvisionnements.destroy', $approvisionnement->id)}}" method="post">
+
+                                                            <a href="{{ route('dashboard.usersEdit', $user->id)}}" class="dropdown-item has-icon"><i class="fas fa-edit text-info"></i> Modifier</a>
+
+                                                          <form action="{{ route('dashboard.usersDelete', $user->id)}}" method="post">
                                                             @csrf
                                                             <button  type="submit" class="dropdown-item has-icon"><i class="fas fa-trash text-danger"></i> Supprimer</button>
                                                           </form>

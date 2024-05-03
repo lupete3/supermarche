@@ -54,10 +54,11 @@
                                             <th>#</th>
                                             <th>Date Vente</th>
                                             <th>Nom Client</th>
+                                            <th>Montant payé</th>
+                                            <th>Reduction</th>
                                             <th>Produit</th>
                                             <th>Quantite Achetée</th>
                                             <th>Prix Ventes</th>
-                                            <th>Bonus</th>
                                             <th>Coût Total </th>
                                         </tr>
                                     </thead>
@@ -65,27 +66,38 @@
 
                                         @php
                                             $total = 0;
+                                            $id = 1;
                                         @endphp
 
-                                        @foreach ($viewData['ventes'] as $vente) 
-                                            <tr>
-                                                @php
-                                                    $total += $vente->prix_tot;
-                                                @endphp
-                                                <td> {{ $vente->id }} </td>
-                                                <td> {{ $vente->created_at }} </td>
-                                                <td> {{ $vente->client->nom }} </td>
-                                                <td> {{ $vente->libelle }} </td>
-                                                <td> {{ $vente->quantite }} </td>
-                                                <td> {{ $vente->prix_vente }} Fc</td>
-                                                <td> {{ $vente->bonus }}</td>
-                                                <td> <b>{{ $vente->prix_tot }} Fc</b></td>
+                                        @foreach ($viewData['ventes'] as $commande) 
+
+                                            @foreach ($commande->ventes as $vente)
+                                                   
+                                                <tr>
+                                                    @if ($loop->first)
+                                                        <td rowspan="{{ $commande->ventes->count() }}">{{ $id++ }}</td>
+                                                        <td rowspan="{{ $commande->ventes->count() }}">{{ $commande->created_at }}</td>
+                                                        <td rowspan="{{ $commande->ventes->count() }}">{{ $commande->client->nom }}</td>
+                                                        <td rowspan="{{ $commande->ventes->count() }}">{{ $commande->montant }} $</td>
+                                                        <td rowspan="{{ $commande->ventes->count() }}">{{ $commande->reduction }} $</td>
+                                                    @endif
+                                                    @php
+                                                        $total += $vente->prix_tot;
+                                                    @endphp 
+                                                        <td> {{ $vente->libelle }} </td>
+                                                        <td> {{ $vente->quantite }} </td>
+                                                        <td> {{ $vente->prix_vente }} $</td>
+                                                        <td> <b>{{ $vente->prix_tot }} $</b></td>
                                                 
-                                            </tr>
+                                                </tr>
+                                            @endforeach
                                         @endforeach
+                                        <tr>
+                                            <td colspan="8"><b>Total</b></td>
+                                            <td><b>{{ number_format($total, 2) }} $</b></td>
+                                        </tr>
                                         
                                     </tbody>
-                                    <h3>Total Vente : {{ $total }} Fc</h3> 
                                 </table>
                                 </div>
                             </div>

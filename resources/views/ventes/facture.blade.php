@@ -30,14 +30,16 @@
                       <div class="row" style="margin-bottom:10px;  " >
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <center>
+                              <p style="font-weight:bold; font-family:Century Gothic; font-size:2em;" >
+                                <b>MAISON CALEB</b>
+                              </p>
                                 <p style="font-weight:bold; font-family:Century Gothic; font-size:1em;" >
-                                    ALIMENTATION EXCELLENTE ELIOR<br>
-									Id.Nat : 01-83-N19972W / N° RCCM : CD/KIN/RCCM/17-B-00575<br> 
-                                    Tél : (+243) 991709989,
+									RCCM: CD, BKV, RCCM14-A-0098, AV: P.E.L., C. IBANDA, LABOTTE No. O53<br>
+                  No: IMPOT D76104A, ID. NAT 5-93N58991Q <br> 
+                                    TEL : (+243) 810264833, BUKAVU / RDC <br>
                                     <span>E-mail :  
-                                        <a href="#" style="text-decoration:underline">divinexcellentelior@gmail.com</a> 
+                                        <a href="#" style="text-decoration:underline">kalebofernand@gmail.com</a> 
                                     </span><br>
-                                    Adresse : Q. MUNUA/ANNEXE, Avenue MWELA, Lubumbashi – Haut Katanga/ RDC
                                     
                                 </p>
                             </center>        
@@ -79,9 +81,9 @@
                                             <table class="table table-bordered table-striped table-sm" style="font-size: 1em">
                                                 <thead>
                                                     <tr style="font-size: 1em">
+                                                        <th>N°</th>
                                                         <th>Désignation</th>
                                                         <th>Qté</th>
-                                                        <th>Bonus</th>
                                                         <th>PU</th>
                                                         <th>TP</th>
                                                         
@@ -97,9 +99,9 @@
                                                     @endphp
                                                     @foreach(session('cart', []) as $productId => $item)
                                                         <tr >
-                                                            <td>{{ $item['name'] }}</td>
-                                                            <td>{{ $item['quantity'] }}</td>
-                                                            <td>{{ $item['bonus'] }}</td>
+                                                          <td>{{ $num++ }}</td>
+                                                          <td>{{ $item['name'] }}</td>
+                                                          <td>{{ $item['quantity'] }}</td>
                                                             <td>{{ $item['price'] }}</td>
                                                             @php
                                                                 $subtotal = $item['quantity'] * $item['price'];
@@ -130,14 +132,16 @@
                                               @php 
                                               
                                                 $tva=$totalAmount*0.16;
-                                                echo $totalAmount-$tva.' Fc';
+                                                echo $totalAmount-$tva.' $';
             
                                               @endphp 
                                             <br>
-                                            <span>TVA : +<?php echo $tva.' Fc'; ?>(16%)</span>
+                                            <span>TVA : +<?php echo $tva.' $'; ?>(16%)</span>
                                              <br>
-                                            <span><strong>Total : {{ $totalAmount }}Fc</strong></span><br>
-                                          </p>
+                                             <span><strong>Net à payé : {{ $totalAmount }}$</strong></span><br>
+                                             <span><strong>Reduction : {{ $reduction }}$</strong></span><br>
+                                             <span><strong>Net payé : {{ $montant }}$</strong></span><br>
+                                            </p>
                                           </td>
                                       </table>
                                 </div> 
@@ -149,7 +153,7 @@
                                         Merci pour votre visite !</span><br> 
             
                                       <p class="text-center" style="font-size:1em; font-family: century Gothic">
-                                        Copyright &copy; Excellente Elior
+                                        Copyright &copy; Pdevtuto
                                       </p>
                                     </center>
                                   </div>
@@ -160,6 +164,9 @@
                                     <form  method="GET" action="{{ route('ventes.paiements',$client->id) }}" class="was-validated">
                                       @csrf
                                       <div class="input-group">
+                                        <input type="hidden" name="total" value="{{ $totalAmount }}">
+                                        <input type="hidden" name="montant" value="{{ $montant }}">
+                                        <input type="hidden" name="reduction" value="{{ $reduction }}">
                                         <button type="submit" class="btn btn-info  pull-right"> <i class="fa fa-check"></i> Confirmer le paiement</button> 
                                       </div>
                                     </form>

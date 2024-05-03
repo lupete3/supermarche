@@ -12,7 +12,7 @@
                 <h1>{{ $viewData['title'] }}</h1>
                 <div class="section-header-breadcrumb">
                   <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Tableau de Bord</a></div>
-                  <div class="breadcrumb-item"><a href="{{ route('approvisionnements.index')}}">Approvisionnements</a></div>
+                  <div class="breadcrumb-item"><a href="{{ route('paiements.index')}}">Paiements</a></div>
                   <div class="breadcrumb-item">{{ $viewData['title'] }}</div>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                             <div class="card-header">
                                 <h4>{{ $viewData['title'] }} </h4>
                                 <div class="card-header-action">
-                                    <a href="{{ route('approvisionnements.create')}}" class="btn btn-icon icon-left btn-success"><i class="fas fa-plus"></i> Effectuer un approvisionnement</a>
+
                                 </div>   
                             </div>
                             <div class="card-body">
@@ -51,40 +51,36 @@
                                 <table class="table table-striped" id="table-1">
                                     <thead>                                 
                                         <tr>
-                                            <th>#</th>
-                                            <th>Produit</th>
-                                            <th>Quantite Achetée</th>
-                                            <th>Prix Achats</th>
-                                            <th>Coût Total</th>
                                             <th>Action</th>
+                                            <th>Date Paiement</th>
+                                            <th>Montant Payé</th>
+                                            <th>Reste</th>
+                                            <th>Client</th>                                            
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($viewData['approvisionnements'] as $approvisionnement) 
-                                            <tr>
-
-                                                <td> {{ $approvisionnement->id }} </td>
-                                                <td> {{ $approvisionnement->article->designation }} </td>
-                                                <td> {{ $approvisionnement->quantite }} </td>
-                                                <td> {{ $approvisionnement->prix }} $</td>
-                                                <td> {{ $approvisionnement->prix_total }} $</td>
-                                                
+                                        @foreach ($viewData['paiements'] as $paiement) 
+                                            <tr>                                                
                                                 <td>
                                                     <div class="dropdown">
                                                         <a href="#" class="dropdown-toggle btn btn-primary" data-toggle="dropdown">Action</a>
                                                         
                                                         <div class="dropdown-menu dropdown-menu-right">
                                                           
-                                                            <a href="{{ route('approvisionnements.edit', $approvisionnement->id)}}" class="dropdown-item has-icon"><i class="far fa-edit text-primary"></i> Modifier</a>
+                                                            <a href="{{ route('paiements.edit', $paiement->id)}}" class="dropdown-item has-icon"><i class="far fa-edit text-primary"></i> Modifier</a>
                                                           
-                                                          <form action="{{ route('approvisionnements.destroy', $approvisionnement->id)}}" method="post">
-                                                            @csrf
-                                                            <button  type="submit" class="dropdown-item has-icon"><i class="fas fa-trash text-danger"></i> Supprimer</button>
-                                                          </form>
-                                                          
+                                                            <form action="{{ route('paiements.destroy', $paiement->id)}}" method="post">
+                                                                @csrf
+                                                                <button  type="submit" class="dropdown-item has-icon"><i class="fas fa-trash text-danger"></i> Supprimer</button>
+                                                            </form>
+
                                                         </div>
                                                     </div>
                                                 </td>
+                                                <td> {{ $paiement->created_at }} </td>
+                                                <td> {{ $paiement->montant }}$ </td>
+                                                <td> {{ $paiement->reste }}$ </td>
+                                                <td> {{ $paiement->client->nom }} </td>
                                             </tr>
                                         @endforeach
                                     </tbody>

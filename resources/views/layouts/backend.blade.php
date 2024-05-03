@@ -90,6 +90,8 @@
           <div class="sidebar-brand">
             <a href="{{ route('dashboard')}}">Tableau de Bord</a>
           </div>
+
+          @if (Auth::user()->role == 'admin')
           <ul class="sidebar-menu">
             <li class="menu-header">Tableau de Bord</li>
             
@@ -148,6 +150,14 @@
               </ul>
             </li>
 
+            <li class="dropdown @if (request()->routeIs('categories-depenses.index', 'categories-depenses.create', 'categories-depenses.edit','depenses.index', 'depenses.create', 'depenses.edit')) active @endif " >
+              <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="ion-cash"></i> <span>DETTES</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="{{ route('creances.index')}}">Liste des dettes</a></li>
+                <li><a class="nav-link" href="{{ route('paiements.index')}}">Liste des paiements</a></li>
+              </ul>
+            </li>
+
             <li class="dropdown @if (request()->routeIs('dashboard.clients', 'dashboard.produits', 'dashboard.achats','dashboard.ventes','dashboard.depenses')) active @endif " >
               <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="ion-stats-bars"></i> <span>RAPPORTS</span></a>
               <ul class="dropdown-menu">
@@ -159,7 +169,53 @@
                 <li><a class="nav-link" href="{{ route('dashboard.depenses')}}">Rapports Dépenses</a></li>
               </ul>
             </li>
+            
+              <li class="dropdown @if (request()->routeIs('dashboard.usersIndex','dashboard.usersCreate')) active @endif " >
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-users" style="font-size: 16px"></i> <span>Utilisateurs</span></a>
+                <ul class="dropdown-menu">
+                  <li><a class="nav-link" href="{{route('dashboard.usersCreate')}}">- Ajouter un utilisateur</a></li>
+                  <li><a class="nav-link" href="{{route('dashboard.usersIndex')}}">- Liste des utilisateurs</a></li>
+                </ul>
+              </li>
           </ul>
+          @endif
+
+          @if (Auth::user()->role == 'user')
+          <ul class="sidebar-menu">
+            <li class="menu-header">Tableau de Bord</li>
+            
+            <li class=" @if (request()->routeIs('dashboard')) active @endif ">
+
+              <a href="{{ route('dashboard') }}" class="nav-link "><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
+             
+            </li>
+            
+            <li class="dropdown @if (request()->routeIs('clients.index', 'clients.create', 'clients.edit')) active @endif " >
+              <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="ion-ios-people"></i> <span>CLIENTS</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="{{ route('clients.create')}}">Ajouter un client</a></li>
+                <li><a class="nav-link" href="{{route('clients.index')}}">Liste des clients</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown @if (request()->routeIs('ventes.index', 'ventes.create', 'ventes.edit')) active @endif " >
+              <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="ion-android-arrow-up"></i> <span>VENTES</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="{{ route('ventes.create')}}">Ajouter une vente</a></li>
+                <li><a class="nav-link" href="{{route('ventes.index')}}">Historique des ventes</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown @if (request()->routeIs('categories-depenses.index', 'categories-depenses.create', 'categories-depenses.edit','depenses.index', 'depenses.create', 'depenses.edit')) active @endif " >
+              <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="ion-minus-circled"></i> <span>DEPENSES</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="{{ route('depenses.create')}}">Ajouter des dépenses</a></li>
+                <li><a class="nav-link" href="{{ route('depenses.index')}}">Liste des dépenses</a></li>
+                <li><a class="nav-link" href="{{ route('categories-depenses.create')}}">Catégories de dépenses</a></li>
+              </ul>
+            </li>
+          </ul>
+          @endif
      
         </aside>
       </div>

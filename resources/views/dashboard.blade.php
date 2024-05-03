@@ -14,7 +14,7 @@
           </div>
 
           <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-12">
               <div class="card card-statistic-1">
                 <div class="card-icon bg-warning">
                   <i class="ion-android-arrow-down"></i>
@@ -25,13 +25,13 @@
                   </div>
                   <div class="card-body">
                     
-                    {{ $viewData['approvisionnements'] }}Fc
+                    {{ $viewData['approvisionnements'] }}$
 
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-12">
               <div class="card card-statistic-1">
                 <div class="card-icon bg-success">
                   <i class="ion-android-arrow-up text-white" ></i>
@@ -42,13 +42,13 @@
                   </div>
                   <div class="card-body">
                     
-                    {{ $viewData['ventes'] }}Fc
+                    {{ $viewData['ventes'] }}$
 
                   </div>
                 </div>
               </div>
             </div>  
-            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-12">
               <div class="card card-statistic-1">
                 <div class="card-icon bg-dark">
                   <i class="ion-minus-circled text-white" ></i>
@@ -59,13 +59,47 @@
                   </div>
                   <div class="card-body">
                     
-                    {{ $viewData['depenses'] }}Fc
+                    {{ $viewData['depenses'] }}$
+
+                  </div>
+                </div>
+              </div>
+            </div>  
+            <div class="col-lg-3 col-md-3 col-sm-3 col-12">
+              <div class="card card-statistic-1">
+                <div class="card-icon bg-warning">
+                  <i class="ion-cash text-white" ></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>Dettes Journalières</h4>
+                  </div>
+                  <div class="card-body">
+                    
+                    {{ $viewData['dettes'] }}$
+
+                  </div>
+                </div>
+              </div>
+            </div>  
+            <div class="col-lg-3 col-md-3 col-sm-3 col-12">
+              <div class="card card-statistic-1">
+                <div class="card-icon bg-danger">
+                  <i class="ion-cash text-white" ></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>Paiements Journaliers</h4>
+                  </div>
+                  <div class="card-body">
+                    
+                    {{ $viewData['paiements'] }}$
 
                   </div>
                 </div>
               </div>
             </div>   
-            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-12">
               <div class="card card-statistic-1">
                 <div class="card-icon bg-primary">
                   <i class="ion-ios-people"></i>
@@ -82,7 +116,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-12">
               <div class="card card-statistic-1">
                 <div class="card-icon bg-danger">
                   <i class="ion-cube"></i>
